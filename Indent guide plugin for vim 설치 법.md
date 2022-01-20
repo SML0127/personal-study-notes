@@ -1,7 +1,9 @@
 ## Environment
 
-framework ubuntu 16.04, vim 7.4
+ubuntu 16.04, vim 7.4
 
+
+## Set up
 1. git clone https://github.com/VundleVim/Vundle.vim.git~/.vim/bundle/Vundle.vim
 
 2. Copy and paste under script to ~/.vimrc
