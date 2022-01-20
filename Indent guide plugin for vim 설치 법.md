@@ -1,4 +1,4 @@
-## Environment
+## Environments
 ![](https://img.shields.io/badge/Ubuntu-16.04-orange)
 ![](https://img.shields.io/badge/Vim-7.4-green)
 
