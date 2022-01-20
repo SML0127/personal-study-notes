@@ -1,7 +1,7 @@
 ## Environment
 
-ubuntu 16.04, vim 7.4
-
+https://img.shields.io/badge/Ubuntu-16.04-orange
+https://img.shields.io/badge/Vim-7.4-green
 
 ## Set up
 1. git clone https://github.com/VundleVim/Vundle.vim.git~/.vim/bundle/Vundle.vim
