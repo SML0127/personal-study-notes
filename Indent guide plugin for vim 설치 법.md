@@ -6,8 +6,7 @@ framework ubuntu 16.04, vim 7.4
 
 2. Copy and paste under script to ~/.vimrc
 
--------------------------------------
-
+~~~
 set nocompatible     
 filetype off     
 set rtp+=~/.vim/bundle/Vundle.vim     
@@ -22,7 +21,7 @@ let g:indentLine_color_term = 'darkgrey'
 let g:indentLine_color_gui = 'darkgrey'     
 let g:indentLine_leadingSpaceChar = '·'     
 let g:indentLine_leadingSpaceEnabled  = 1     
+~~~
 
--------------------------------------
 
 3. Run :PluginInstall
