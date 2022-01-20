@@ -1,3 +1,3 @@
 # personal-study-notes
-A repository to record what I have studied.   
-This is my personal understanding and translation, so there are errors or mistranslations.
+It is a repository that records what I have studied and how to install tools and libraries.   
+As I study personally and translate based on my understanding, there may be mistranslations or incorrect contents.
