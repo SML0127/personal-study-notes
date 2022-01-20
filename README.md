@@ -1,2 +1,3 @@
 # personal-study-notes
-repository to record what I have studied
+A repository to record what I have studied.   
+This is my personal understanding and translation, so there are errors or mistranslations.
