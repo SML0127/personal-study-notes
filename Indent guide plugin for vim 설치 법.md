@@ -8,20 +8,20 @@ framework ubuntu 16.04, vim 7.4
 
 -------------------------------------
 
-set nocompatible
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'Yggdroot/indentLine'
+set nocompatible     
+filetype off     
+set rtp+=~/.vim/bundle/Vundle.vim     
+call vundle#begin()     
+Plugin 'VundleVim/Vundle.vim'     
+Plugin 'Yggdroot/indentLine'     
 call vundle#end()            
-filetype plugin indent on 
+filetype plugin indent on     
 
-let g:indentLine_char = '┆'
-let g:indentLine_color_term = 'darkgrey'
-let g:indentLine_color_gui = 'darkgrey'
-let g:indentLine_leadingSpaceChar = '·'
-let g:indentLine_leadingSpaceEnabled  = 1
+let g:indentLine_char = '┆'     
+let g:indentLine_color_term = 'darkgrey'     
+let g:indentLine_color_gui = 'darkgrey'     
+let g:indentLine_leadingSpaceChar = '·'     
+let g:indentLine_leadingSpaceEnabled  = 1     
 
 -------------------------------------
 
