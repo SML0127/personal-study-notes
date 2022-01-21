@@ -11,3 +11,4 @@ e.g. sudo docker network create --gateway=172.20.0.1 --subnet=172.20.0.0/16 -o "
   4. /etc/systemd/system/docker.service.d 경로에 프록시 있는지 확인   
   5. /etc/systemd/system/docker.service.d/docker-options.conf 파일   
   6. --iptables= true로 설정   
+  ![image](https://user-images.githubusercontent.com/13589283/150479643-51f7655d-464a-40c0-9865-12b24b520486.png)
