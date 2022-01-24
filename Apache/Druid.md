@@ -10,6 +10,17 @@
  - SQL support: JSON 기반 언어외에도 HTTP, JDBC를 통해 SQL 사요을 지원
  - Horizontal scalability: 초당 수백만개의 이벤트를 수집하고, 수년간의 데이터를 유지하며 sub-second 질의(Fast Interactive queries which can be used to power interactive dashboards, fast analytics, monitoring and alerting applications)를 지원
 
+## Integration
+카프카, 하둡, 플링크등의 data source들과 연동을 지원   
+Storage layer와 end-user layer 사이에 query layer로써 analytics workloads를 수행하기위해 존재
+![diagram-3](https://user-images.githubusercontent.com/13589283/150742478-e1ed9e73-b2b1-4aa3-9641-19ce135f8524.png)
+
+
+## Ingestion
+스트리밍(e.g. Kafka)과 배치(e.g. HDFS) ingestion을 지원   
+raw data를 read에 최적화된 format인 Druid segement(read-optimized format)로 바꾸는 인덱싱을 지원  
+![diagram-4](https://user-images.githubusercontent.com/13589283/150743078-5d3bc427-75cd-4359-b16c-c6f16a76259e.png)
+
 ![1024px-Druid_Open-Source_Data_Store,_architecture,_DruidArchitecture3 svg](https://user-images.githubusercontent.com/13589283/150739968-de620cb1-0da9-4393-9477-81486170c24d.png)
 
 = OLAP = online analytical processing 
