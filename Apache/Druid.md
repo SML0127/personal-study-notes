@@ -48,10 +48,10 @@ microservice-based 아키텍처로 각각의 코어 서비스들(ingestion, quer
  - Automatic data backup: 인덱스된 모든 데이터를 HDFS 같은 filesystem에 백업함으로 druid cluster 전체를 잃어도 빠르게 복원 가능
  - Rolling updates: 사용자의 서비스에 영향을 주지 않고 (끊김 없이) druid cluster를 업데이트 가능
 
+
+
+
+## 개인적 생각
+즉, 데이터를 저장하며 데이터들의 분포, 경항, aggregation등을 인덱스로 업데이트 해가며 유지 + druid cluster를 유지하여 단일 서버에서 failure가 나더라도 문제가 없도록 하는 것이 주요 장점 인듯? 데이터가 자주 업데이트 되는 환경에는 부적합 
+클러스터 조율에는 주키퍼가, 메타데이터 스토리지는 RDB들이, deep storage는 HDFS나 AWS S3가(영구 데이터 백업용)으로 사용 
 ![1024px-Druid_Open-Source_Data_Store,_architecture,_DruidArchitecture3 svg](https://user-images.githubusercontent.com/13589283/150739968-de620cb1-0da9-4393-9477-81486170c24d.png)
-
-
-
-= OLAP = online analytical processing 
- = 데이터들을 미리 분석 해 놓는 database다 = 즉 기존 RDB들은 데이터들을 저장하는것이 주 목적이라면 드루이드는 그 데이터들의 분포, 경향, 어그리게이션등을 인덱스로써 업데이트해가며 유지 = 
-타임스탬프, 디멘션, 메트릭
