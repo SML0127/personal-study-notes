@@ -53,5 +53,5 @@ microservice-based 아키텍처로 각각의 코어 서비스들(ingestion, quer
 
 ## 개인적 생각
 즉, 데이터를 저장하며 데이터들의 분포, 경항, aggregation등을 인덱스로 업데이트 해가며 유지 + druid cluster를 유지하여 단일 서버에서 failure가 나더라도 문제가 없도록 하는 것이 주요 장점 인듯? 데이터가 자주 업데이트되거나 테이블 간의 조인을 요하는 환경에는 부적합    
-클러스터 구성을 보면 스트리밍 데이터를 받는 real-time node, 세그먼트의 관리 및 분산을 담당하는 coordinatior node, 질의를 받는 broker node, broker node로 받은 질의를 딥스토리에서 가져온 세그먼트에서 수행하여 그 결과를 반환해주는 historical node, 클러스터 조율에는 주키퍼, 메타데이터 스토리지는 RDB들이, deep storage는 HDFS나 AWS S3가(영구 데이터 백업용)으로 사용 
+클러스터 구성을 보면 스트리밍 데이터를 받는 real-time node, 세그먼트의 관리 및 분산을 담당하는 coordinatior node, 질의를 받는 broker node, broker node로 받은 질의를 딥스토리에서 가져온 세그먼트에서 수행하여 그 결과를 반환해주는 historical node, 클러스터 조율에는 주키퍼, 메타데이터 스토리지는 RDB들이(세그먼트들에 대한 메타데이터), deep storage는 HDFS나 AWS S3가(영구 데이터 즉 세그먼트 백업용)으로 사용 
 ![1024px-Druid_Open-Source_Data_Store,_architecture,_DruidArchitecture3 svg](https://user-images.githubusercontent.com/13589283/150739968-de620cb1-0da9-4393-9477-81486170c24d.png)
