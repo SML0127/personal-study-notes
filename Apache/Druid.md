@@ -9,7 +9,7 @@
  - Streaming and batch ingest: Kafka, HDFS, AWS SE등의 스트리밍 커넥터를 지원     
  - Flexible schemas: 변화하는 schema와 nested data들에 대한 지원     
  - Time-optimized partitioning: 시간을 기반으로 데이터를 파티셔닝하며, 시간 관련 질의(time-based query)를 기존의 database보다 빠르게 지원     
- - SQL support: JSON 기반 언어외에도 HTTP, JDBC를 통해 SQL 사요을 지원
+ - SQL support: JSON 기반 언어외에도 HTTP, JDBC를 통해 SQL 사용을 지원
  - Horizontal scalability: 초당 수백만개의 이벤트를 수집하고, 수년간의 데이터를 유지하며 sub-second 질의(Fast Interactive queries which can be used to power interactive dashboards, fast analytics, monitoring and alerting applications)를 지원
 
 ## Integration
