@@ -1,6 +1,5 @@
-## Travis-ci?
-![ci](https://user-images.githubusercontent.com/13589283/151662805-e48ded2f-8f49-4845-9e2d-5267809c36d9.jpeg)
-링크: https://www.travis-ci.com/     
+## [Travis-ci](https://www.travis-ci.com/)?
+![ci](https://user-images.githubusercontent.com/13589283/151662805-e48ded2f-8f49-4845-9e2d-5267809c36d9.jpeg)        
 웹을 통해 제공되는 CI(continuous integration) tool.   
 
 ## 사용법
@@ -40,4 +39,3 @@ script:
 ![image](https://user-images.githubusercontent.com/13589283/151662748-de8f2cb6-e860-4e4d-a5a8-bd2fe8e0cd00.png)
 
 
-6. 
