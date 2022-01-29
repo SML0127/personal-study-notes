@@ -1,4 +1,5 @@
 ## Travis-ci?
+![ci](https://user-images.githubusercontent.com/13589283/151662805-e48ded2f-8f49-4845-9e2d-5267809c36d9.jpeg)
 링크: https://www.travis-ci.com/     
 웹을 통해 제공되는 CI(continuous integration) tool.   
 
