@@ -3,14 +3,14 @@
 웹을 통해 제공되는 CI(continuous integration) tool.   
 
 ## 사용법
-예제 repository: https://github.com/SML0127/pse-extension     
+예제 [repository](https://github.com/SML0127/pse-extension)        
 
 1. github으로 로그인
 
 2. repository(https://github.com/SML0127/pse-extension) 등록   
 ![image](https://user-images.githubusercontent.com/13589283/151662635-9ff1d3a6-e57c-40cd-a611-0113e3a53ee6.png)
 
-3. .travis.yaml을 작성 및 repository에 추가   
+3. .travis.yml 파일 작성 및 repository에 추가   
 ~~~
 language: node_js
 os: osx
