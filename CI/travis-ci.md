@@ -38,5 +38,5 @@ script:
 5. repository에 push 하여 자동으로 빌드 및 로그 확인
 ![image](https://user-images.githubusercontent.com/13589283/151662748-de8f2cb6-e860-4e4d-a5a8-bd2fe8e0cd00.png)
 
-6. 빌드 / 컴파일에 성공하였다면 아래와 같은 뱃지가 추가
+6. 빌드 / 컴파일에 성공하였다면 build passing 뱃지가 추가됨
 ![image](https://user-images.githubusercontent.com/13589283/151662920-40d28951-d03d-41f6-8e7e-9f348a553cee.png)
