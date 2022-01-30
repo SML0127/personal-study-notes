@@ -6,7 +6,7 @@
 기준: 맥 os  
 예제 [repository](https://github.com/SML0127/pse-extension)   
 
-1. brew를 통한 jenkins 설치 jenkins
+1. brew를 통한 jenkins 설치 jenkins            
    brew install jenkins
 
 2. jenkins 계정 설정     
