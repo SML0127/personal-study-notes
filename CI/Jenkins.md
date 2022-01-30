@@ -12,7 +12,7 @@
 2. jenkins 계정 설정     
 
 3. 필요 plugin 설치 및 설정     
-   - NodeJs 설치 및 global tool configuration에서 node js 설정     
+   - NodeJs 설치 및 global tool configuration에서 node js 설정 (설정 이름은 pse-node-js).        
    
 4. Job 생성 및 git repository 설정     
 
