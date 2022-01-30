@@ -14,7 +14,12 @@ It is a repository that records what I have studied and how to install tools and
    - [Kubernetes 기본 개념](https://github.com/SML0127/personal-study-notes/blob/main/Container/Kubernetes%20%EA%B8%B0%EB%B3%B8%20%EA%B0%9C%EB%85%90.md)
    - [Pixie (tool for monitoring kubernetes)](https://github.com/SML0127/personal-study-notes/blob/main/Container/Pixie%20(Kubernetes%20monitoring%20tool).md)
    - [Github에 container image 푸시 방법](https://github.com/SML0127/personal-study-notes/blob/main/Container/Github%EC%97%90%20container%20image%20%ED%91%B8%EC%8B%9C%20%EB%B0%A9%EB%B2%95.md)
+
  - CI(Continuous Integration) 
+   - [Jenkins on mac](https://github.com/SML0127/personal-study-notes/blob/main/CI/Jenkins.md)
+   - [travis ci](https://github.com/SML0127/personal-study-notes/blob/main/CI/travis-ci.md)
+
  - MLOps
+   - [MLOps 기본 개념](https://github.com/SML0127/personal-study-notes/blob/main/MLOps/MLOps%20%EA%B8%B0%EB%B3%B8%20%EA%B0%9C%EB%85%90.md)  
          
       
