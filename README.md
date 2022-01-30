@@ -2,7 +2,7 @@
 
 It is a repository that records what I have studied and how to install tools and libraries. There may be mistranslations or incorrect contents, becasue of lack of my understanding.
 
-### 목차
+### Index
  - Aapche
    - [Druid](https://github.com/SML0127/personal-study-notes/blob/main/Apache/Druid.md)
    - [Spark](https://github.com/SML0127/personal-study-notes/blob/main/Apache/Spark.md)
