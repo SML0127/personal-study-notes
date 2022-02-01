@@ -1,14 +1,15 @@
 ## Docker network?
 도커는 내부적으로 컨테이너마다 네트워크 설정을 할 수 있고 또 host 서버의 네트워크를 사용할 수 있다.       
-별도의 설정을 하지 않고 컨테이너를 생성하면 default bridge들이 network driver로써 할당 된다.    
+별도의 설정을 하지 않고 컨테이너를 생성하면 default bridge가 network driver로써 할당 된다.    
+아래 그림처럼 컨테이너 내부에서는 컨테이너 내부 네트워크라는 인식 없이 설정 및 사용되며, 도커가 호스트서버와 연결을 담당해 준다. 
 ![bridge1](https://user-images.githubusercontent.com/13589283/151919401-0c6ada8f-6c78-45e6-978a-2030b7a871a5.png)
 
 
 ## Docker network 종류
- - bridge : 가장 기본이 되는 network driver로, 별도의 네트워크 설정 없시 컨테이너 생성시 할당된다.(The default network driver. If you don’t specify a driver, this is the type of network you are creating. Bridge networks are usually used when your applications run in standalone containers that need to communicate.)
- - host :
- - none :
- - overlay :
+ - bridge : 가장 기본이 되는 network driver로, 별도의 네트워크 설정 없시 컨테이너 생성시 할당된다.(The default network driver. If you don’t specify a driver, this is the type of network you are creating. Bridge networks are usually used when your applications run in standalone containers that need to communicate)
+ - host : host 서버의 네트워크를 공유하여 사용한다.(For standalone containers, remove network isolation between the container and the Docker host, and use the host’s networking directly)
+ - none : 네트워크 설정을 하지 않는 것으로, 내부적으로 loopback ip만 있고 별도의 ip 할당은 하지 않아 외부 네트워크에서 접근을 할 수 없다. (For this container, disable all networking. Usually used in conjunction with a custom network driver. none is not available for swarm services)
+ - overlay : 도커들 간의 컨테이너들 끼리 네트워크를 공유하고자 할 때 사용한다. docker ochestration tool인 swarm을 사용 할 수 있다. (Overlay networks connect multiple Docker daemons together and enable swarm services to communicate with each other)
 
 
 ## Docker 네트워크 생성
