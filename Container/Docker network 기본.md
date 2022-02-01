@@ -9,17 +9,17 @@
  - bridge : 가장 기본이 되는 network driver로, 별도의 네트워크 설정 없시 컨테이너 생성시 할당된다.(The default network driver. If you don’t specify a driver, this is the type of network you are creating. Bridge networks are usually used when your applications run in standalone containers that need to communicate)
  - host : host 서버의 네트워크를 공유하여 사용한다.(For standalone containers, remove network isolation between the container and the Docker host, and use the host’s networking directly)
  - none : 네트워크 설정을 하지 않는 것으로, 내부적으로 loopback ip만 있고 별도의 ip 할당은 하지 않아 외부 네트워크에서 접근을 할 수 없다. (For this container, disable all networking. Usually used in conjunction with a custom network driver. none is not available for swarm services)
- - overlay : 도커들 간의 컨테이너들 끼리 네트워크를 공유하고자 할 때 사용한다. docker ochestration tool인 swarm을 사용 할 수 있다. (Overlay networks connect multiple Docker daemons together and enable swarm services to communicate with each other)
+ - overlay : 도커들 간의 컨테이너들 끼리 네트워크를 공유하고자 할 때 사용한다. docker ochestration tool인 swarm을 사용 할 수 있다. (The overlay network driver creates a distributed network among multiple Docker daemon hosts. Overlay networks connect multiple Docker daemons together and enable swarm services to communicate with each other)
 
 
-## Docker 네트워크 생성
+## Docker network bridge 생성
 network 생성시 gateway, subnet이 다른 기존 도커 네트워크랑 겹치지 않도록 해야함(옵션 안주면 자동으로 안겹치게 생성해줌)          
 ~~~
 sudo docker network create --gateway=172.20.0.1 --subnet=172.20.0.0/16 -o "com.docker.network.bridge.host_binding_ipv4"="0.0.0.0" -o "com.docker.network.bridge.enable_icc"="true" -o "com.docker.network.driver.mtu"="1500" -o "com.docker.network.bridge.name"="network_name" -o "com.docker.network.bridge.enable_ip_masquerade"="true" network_name
 ~~~
 
 
-## Docker container 외부로 통신이 안될 경우 확인   
+## Docker container 외부로 통신이 안될 경우 확인해야할 것들  
   1. sysctl net.ipv4.conf.all.forwarding=1   
   2. sudo iptables -P FORWARD ACCEPT   
   3. docker network에 enable_ip_masquerade true로 설정   
