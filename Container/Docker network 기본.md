@@ -20,8 +20,8 @@ sudo docker network create --gateway=172.20.0.1 --subnet=172.20.0.0/16 -o "com.d
 
 
 ## Docker container 외부로 통신이 안될 경우 확인해야할 것들  
-  1. ~~~ sysctl net.ipv4.conf.all.forwarding=1  ~~~      
-  2. ~~~ sudo iptables -P FORWARD ACCEPT ~~~      
+  1. sysctl net.ipv4.conf.all.forwarding=1       
+  2. sudo iptables -P FORWARD ACCEPT       
   3. docker network에 enable_ip_masquerade true로 설정   
   4. /etc/systemd/system/docker.service.d 경로에 프록시 있는지 확인   
   5. /etc/systemd/system/docker.service.d/docker-options.conf 파일   
