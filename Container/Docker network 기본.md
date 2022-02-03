@@ -1,7 +1,7 @@
 ## Docker network?
-도커는 내부적으로 컨테이너마다 네트워크 설정을 할 수 있고 또 host 서버의 네트워크를 사용할 수 있다.       
+도커는 컨테이너마다 네트워크(network driver) 설정을 할 수 있고 또 host 서버의 네트워크를 공유할 수도 있다.       
 별도의 설정을 하지 않고 컨테이너를 생성하면 default bridge가 network driver로써 할당 된다.    
-아래 그림처럼 컨테이너 내부에서는 컨테이너 내부 네트워크라는 인식 없이 설정 및 사용되며, 도커가 호스트서버와 연결을 담당해 준다. 
+아래 그림의 구조 덕분에 컨테이너 내부에서는 컨테이너 내부 네트워크라는 인식 없이 설정 및 사용할 수 있으며, 호스트서버와 연결은 docker가 담당한다. 
 ![bridge1](https://user-images.githubusercontent.com/13589283/151919401-0c6ada8f-6c78-45e6-978a-2030b7a871a5.png)
 
 
@@ -20,8 +20,8 @@ sudo docker network create --gateway=172.20.0.1 --subnet=172.20.0.0/16 -o "com.d
 
 
 ## Docker container 외부로 통신이 안될 경우 확인해야할 것들  
-  1. sysctl net.ipv4.conf.all.forwarding=1   
-  2. sudo iptables -P FORWARD ACCEPT   
+  1. ~~~ sysctl net.ipv4.conf.all.forwarding=1  ~~~      
+  2. ~~~ sudo iptables -P FORWARD ACCEPT ~~~      
   3. docker network에 enable_ip_masquerade true로 설정   
   4. /etc/systemd/system/docker.service.d 경로에 프록시 있는지 확인   
   5. /etc/systemd/system/docker.service.d/docker-options.conf 파일   
