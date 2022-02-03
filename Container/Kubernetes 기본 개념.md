@@ -2,7 +2,7 @@
   - Container들을 관리 및 조율(corchestraion) 해주는 tool  
 
 ## 관련 background
-  a) Virtual machine: 호스트 서버와 별개의 하드웨어 스택을 가지는 가상 공간. 자체 커널을 포함하며 hypervisor를 통해 호스트 서버와 조율된다.  
+  a) Virtual machine: 호스트 서버와 별개의 하드웨어 스택을 가지는 가상 공간으로 자체 커널을 포함하며 hypervisor를 통해 호스트 서버와 조율된다.  
   b) Container: OS 레벨에서의 가상 공간이다. 호스트 서버의 리소스, 라이브러리등을 공유하는 가상 공간 application이다.    
   c) Docker: conatiner 이미지에 대한 생성, 관리, 배포 그리고 이미지를 이용하여 container를 띄어 주는 통합 platform으로 containerd, runc등 독립적인 프로세스들을 가진다.   
   d) Kubernetes: container들을 관리 및 조율하는 tool. docker와 호환은 되는데, 1.24 버전부터 성능상의 이유로 docker 지원 중단.    
