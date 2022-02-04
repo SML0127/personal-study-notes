@@ -3,7 +3,7 @@
 
 ## MLOps란?
   - 기존 DevOps의 개발과 운영을 합쳐 생산성과 운영의 안정성을 최적화하는 방법론을 ML에 적용한 방법론이다.
-  - 머신러닝을 서비스에 적용하기 까지의 일련의 과정들에 대한 운용이라고 정의 하기도한다.
+  - 머신러닝을 서비스에 적용하기까지의 일련의 과정들에 대한 운용이라고 정의 하기도한다.
   - 데이터 수집, 전처리 및 분석하는 단계 (Data Collection, Ingestion, Analysis, Labeling, Validation, Preparation)와 모델을 생성, 학습 및 배포하는 단계(Model Training, Validation, Deployment) 전 과정을 하나의 라이프사이클로 본다.
   - 데이터 수집부터 모델을 만들어내는 것(test 환경)과 프로덕션 환경에 적용하는 것은 다른 레벨의 문제이다.(프로덕션 환경을 고려안하면 MLOps level 0)   
 
