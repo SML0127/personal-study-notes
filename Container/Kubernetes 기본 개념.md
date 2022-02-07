@@ -43,7 +43,7 @@
 2. Pod, Replicaset, Deployment   
   a) Job: pod들을 실행하여 어떠한 작업을 수행하고 종료시키는 것을 의미. 반복 실행은 CronJob. Job을 띄운다 = Pod를 띄우고 어떠한 작업을 수행하고 종료한다.   
   b) Pod: 클러스터에서 실행되는 컨테이너들의 집합. 가장 작은 배포 단위    
-    b.1) Affinity / Anti-affinity: 파드들 관의 관계를 지정하는 옵션으로 같은 노드위에 파드를 띄우고 싶다거나, 파드를 개별적인 노드 또는 다른 노드 띄워야 할 경우 설정.   
+    b.1) Affinity / Anti-affinity: 파드들간의 관계를 지정하는 옵션으로 같은 노드위에 파드를 띄우고 싶다거나, 파드를 개별적인 노드 또는 다른 노드 띄워야 할 경우 설정.   
   c) Replicaset: 파드들을 생성, 관리하는  (Replication Controller는 selector로 pod들 하나씩 관리하고, replica는 mactch label로 여러개 관리)   
   d) Deployment: 레플리카셋들과 파드들 관리. 변경사항이 있을 경우 롤링 업데이트(command: roll-out) 로 새로운 파드들 생성하고 기존 파드들을 죽이며 순차적으로 업데이트 (서비스 상의 중단은 없음)   
   e) DaemonSet: 전반적인 레플리카셋, 파드들의 관리가 delopyment, 클러스터 전체에 띄우는 특정 파드들에 대한 관리는 DaemonSet   
