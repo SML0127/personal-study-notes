@@ -41,27 +41,27 @@ cur = db_conn.cursor()
 5. 테스트 코드의 추가 (테스트 코드) 
 
 ~~~
-  ## CrawledPage.react.js 
-  get_latest_progress(){
-      const obj = this;
-      axios.post(setting_server.DB_SERVER+'/api/db/executions', {
-        req_type: "get_latest_progress",
-        job_id: obj.props.JobId,
+## CrawledPage.react.js 
+get_latest_progress(){
+  const obj = this;
+  axios.post(setting_server.DB_SERVER+'/api/db/executions', {
+    req_type: "get_latest_progress",
+    job_id: obj.props.JobId,
+  })
+  .then(function (response) {
+    if (response['data']['success'] == true) {
+      console.log(response)
+      obj.setState({
+        current_detail_num: response['data']['result'][0],
+        expected_detail_num: response['data']['result'][1], 
+        progress_detail: isNaN(parseFloat(response['data']['result'][1]) / parseFloat(response['data']['result'][0]) * 100 ) ? 0 : (parseFloat(response['data']['result'][1]) / parseFloat(response['data']['result'][0]) * 100 )
       })
-      .then(function (response) {
-        if (response['data']['success'] == true) {
-          console.log(response)
-          obj.setState({
-            current_detail_num: response['data']['result'][0],
-            expected_detail_num: response['data']['result'][1], 
-            progress_detail: isNaN(parseFloat(response['data']['result'][1]) / parseFloat(response['data']['result'][0]) * 100 ) ? 0 : (parseFloat(response['data']['result'][1]) / parseFloat(response['data']['result'][0]) * 100 )
-          })
-        } 
-      })
-      .catch(function (error){
-        console.log(error);
-      });
-    }
+    } 
+  })
+  .catch(function (error){
+    console.log(error);
+  });
+}
 ~~~
 
 1. obj라는 변수의 변수명을 더 목적이 들어나도록 (가독성)
