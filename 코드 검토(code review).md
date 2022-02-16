@@ -1,8 +1,8 @@
 출처: https://smartbear.com/learn/code-review/what-is-code-review/
 ## 코드 검토(code review)?
 
-
-단순히 코딩 스타일, 개발표준같은 가이드라인에 따른다기보다, 유지보수의 관점.. 
+단순히 코딩 스타일, 개발 표준같은 가이드라인에 따른다는 것이 아니다.        
+peer code review라고도 하며, 서로 간의 코드를 보며 에러, 문제가 발생할수 있는 부분, 유지보수의 관점에서 수정해야할 것들을 점검하는 것이다. 
 
 
 아래 코드(db-server.py)의 예시
