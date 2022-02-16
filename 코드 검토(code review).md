@@ -19,19 +19,19 @@ peer code review라고도 하며 서로 간의 코드를 보며 중복, 에러, 
 
 아래 코드들을 리뷰한다 하였을때
 ~~~
-            ## db-server.py
-            cur = conn.cursor()
+## db-server.py
+cur = conn.cursor()
            
-            query = "select task.input, stage.level from task join stage on stage.id = task.stage_id where task.id = %s;"
-            cur.execute(query % str(task_id))
-            (input_url, level) = cur.fetchone()
+query = "select task.input, stage.level from task join stage on stage.id = task.stage_id where task.id = %s;"
+cur.execute(query % str(task_id))
+(input_url, level) = cur.fetchone()
           
-            query = "select output from succeed_task_detail where task_id = %s;"
-            cur.execute(query % str(task_id))
-            output_url_list = cur.fetchall()[0]
+query = "select output from succeed_task_detail where task_id = %s;"
+cur.execute(query % str(task_id))
+output_url_list = cur.fetchall()[0]
 
-            conn.commit()
-            cur = db_conn.cursor()
+conn.commit()
+cur = db_conn.cursor()
 ~~~            
 
 1. 변수명을 지을때 더 목적이 들어나도록 (가독성)
