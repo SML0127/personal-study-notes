@@ -1,3 +1,4 @@
+출처: https://smartbear.com/learn/code-review/what-is-code-review/
 ## 코드 검토(code review)?
 
 
