@@ -40,6 +40,10 @@ cur = db_conn.cursor()
 4. table / column등의 이름이 바뀔 수 있으니 변수로 관리 (유지보수)
 5. 테스트 코드의 추가 (테스트 코드) 
 
+리뷰 이후의 코드
+~~~
+~~~
+
 ~~~
 ## CrawledPage.react.js 
 get_latest_progress(){
