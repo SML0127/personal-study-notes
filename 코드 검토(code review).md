@@ -1,0 +1,28 @@
+## 코드 검토(code review)?
+
+
+단순히 코딩 스타일, 개발표준같은 가이드라인에 따른다기보다, 유지보수의 관점.. 
+
+
+아래 코드(db-server.py)의 예시
+~~~
+            cur = conn.cursor()
+           
+            query = "select task.input, stage.level from task join stage on stage.id = task.stage_id where task.id = %s;"
+            cur.execute(query % str(task_id))
+            (input_url,level) = cur.fetchone()
+          
+            query = "select output from succeed_task_detail where task_id = %s;"
+            cur.execute(query % str(task_id))
+            output_url_list = cur.fetchall()[0]
+
+            conn.commit()
+            cur = db_conn.cursor()
+~~~            
+
+다른사람들이 해당 코드를 본다 하였을때 고쳐야할 점들을 리스트업 해보면
+1. 변수명을 지을때 좀더 목적이 들어나게 지어야함
+2. query 라는 변수의 재사용 제거
+3. db connection의 관리
+4. table / column등의 이름이 바뀔 수 있으니 변수명으로 관리
+
