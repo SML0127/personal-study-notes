@@ -50,23 +50,30 @@ cur = conn.cursor()
 // table과 column 변수화 (local variable -> global variable로 변경)
 table_task = "task"
 table_stage = "stage"
+column_task_input = "input"
+column_stage_level = "level"
+column_task_id = "id"
+column_task_stage_id = "stage_id"
 
 // 변수 명 재사용
-get_input_level_query = "select %s.input, %s.level from %s join %s on stage.id = %s.stage_id where %s.id = %s;".format(table_task, table_stage, table_task, table_stage, table_task, table_task)
+get_input_level_query = "select %s.%s, %s.%s from %s join %s on %s.%s = %s.%s where %s.%s = %s;".format(table_task, column_task_input, table_stage, column_stage_level, table_task, table_stage, table_stage, column_task_id, table_task,column_task_stage_id,  table_task, column_task_id)
 cur.execute(get_input_level_query % str(task_id))
 (input_url, level) = cur.fetchone()
 
 // table과 column 변수화 (local variable -> global variable로 변경)
 table_succeed_task_detail = "succeed_task_detail"
-
+column_std_output = "output"
+column_std_task_id = "task_id"
 
 // 변수 명 재사용
-get_output_query = "select output from %s where task_id = %s;".format(table_succeed_task_detail)
+get_output_query = "select %s from %s where %s = %s;".format(column_std_output, table_succeed_task_detail, column_std_task_id)
 cur.execute(get_output_query % str(task_id))
 output_url_list = cur.fetchall()[0]
 
 conn.commit()
-cur = db_conn.cursor()
+
+// 변수 명 재사용
+db_cur = db_conn.cursor()
 ~~~
 
 ~~~
