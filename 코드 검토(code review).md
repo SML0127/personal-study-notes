@@ -40,7 +40,7 @@ cur = db_conn.cursor()
 4. table / column등의 이름이 바뀔 수 있으니 변수로 관리 (유지보수)
 5. 테스트 코드의 추가 (테스트 코드) 
 
-리뷰 이후의 코드
+코드 리뷰 이후의 버전
 ~~~
 ## db-server.py
 // connection과 cursor 관리
@@ -104,4 +104,42 @@ get_latest_progress(){
 2. result안의 값들을 여러번 가져다 쓰니 미리 변수로 저장하자 (재사용성)
 3. 계산 식은 따로 빼서 더 정리하자 (가독성)
 4. '/api/db/executions' 부분도 변수로 (유지보수)
-5. 테스트 코드의 추가 (테스트 코드) 
+
+
+코드 리뷰 이후의 버전
+~~~
+## CrawledPage.react.js 
+get_latest_progress(){
+  // 변수명 목적이 들어나게
+  const this_obj = this;
+  
+  // 유지보수를 위해 변수화 (local to global)
+  api_execution = '/api/db/executions'
+  
+  axios.post(setting_server.DB_SERVER + api_execution, {
+    req_type: "get_latest_progress",
+    job_id: this_obj.props.JobId,
+  })
+  .then(function (response) {
+    if (response['data']['success'] == true) {
+      console.log(response)
+      
+      // 중복 사용되는 것들 변수화
+      local_current_detail_num = response['data']['result'][0]
+      local_expected_detail_num = response['data']['result'][1]
+      
+      // 계산식은 빼서
+      local_progress_detail = isNaN(parseFloat(local_expected_detail_num) / parseFloat(local_current_detail_num) * 100 ) ? 0 : (parseFloat(local_expected_detail_num) / parseFloat(local_current_detail_num) * 100 )
+      
+      obj.setState({
+        current_detail_num: local_current_detail_num,
+        expected_detail_num: local_expected_detail_num, 
+        progress_detail: local_progress_detail
+      })
+    } 
+  })
+  .catch(function (error){
+    console.log(error);
+  });
+}
+~~~
