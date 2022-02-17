@@ -42,6 +42,31 @@ cur = db_conn.cursor()
 
 리뷰 이후의 코드
 ~~~
+## db-server.py
+// connection과 cursor 관리
+cur = conn.cursor()
+
+
+// table과 column 변수화 (local variable -> global variable로 변경)
+table_task = "task"
+table_stage = "stage"
+
+// 변수 명 재사용
+get_input_level_query = "select %s.input, %s.level from %s join %s on stage.id = %s.stage_id where %s.id = %s;".format(table_task, table_stage, table_task, table_stage, table_task, table_task)
+cur.execute(get_input_level_query % str(task_id))
+(input_url, level) = cur.fetchone()
+
+// table과 column 변수화 (local variable -> global variable로 변경)
+table_succeed_task_detail = "succeed_task_detail"
+
+
+// 변수 명 재사용
+get_output_query = "select output from %s where task_id = %s;".format(table_succeed_task_detail)
+cur.execute(get_output_query % str(task_id))
+output_url_list = cur.fetchall()[0]
+
+conn.commit()
+cur = db_conn.cursor()
 ~~~
 
 ~~~
