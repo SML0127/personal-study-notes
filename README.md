@@ -22,4 +22,7 @@ It is a repository that records what I have studied and how to install tools and
  - MLOps
    - [MLOps 기본 개념](https://github.com/SML0127/personal-study-notes/blob/main/MLOps/MLOps%20%EA%B8%B0%EB%B3%B8%20%EA%B0%9C%EB%85%90.md)  
          
-      
+ - 코드 리뷰
+   - [코드 리뷰](https://github.com/SML0127/personal-study-notes/blob/main/%EC%BD%94%EB%93%9C%20%EB%A6%AC%EB%B7%B0/Code%20review.md)
+   - [코드 리뷰를 위한 Pull Request](https://github.com/SML0127/personal-study-notes/blob/main/%EC%BD%94%EB%93%9C%20%EB%A6%AC%EB%B7%B0/PR_for_code_review.md) 
+         
