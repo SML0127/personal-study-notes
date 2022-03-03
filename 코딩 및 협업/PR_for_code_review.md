@@ -1,4 +1,4 @@
-원글: https://support.atlassian.com/bitbucket-cloud/docs/use-pull-requests-for-code-review/
+원글: https://support.atlassian.com/bitbucket-cloud/docs/use-pull-requests-for-code-review/              
 (P.S. bitbucket에 디펜던시가 있는 내용(e.g. bitbucket에서의 pull request 확인 방법)은 제외)
 
 ## Use pull requests for code review
