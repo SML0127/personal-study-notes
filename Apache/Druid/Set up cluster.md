@@ -1,21 +1,21 @@
 # Set up druid cluster
 Guideline for setting up druid cluster
 
-### Reference
+## Reference
  - https://druid.apache.org/docs/latest/tutorials/cluster.html
 
-### Requirements
+## Requirements
  - Java >= 1.8 
 (Druid officially supports Java 8 only. Support for later major versions of Java is currently in experimental status.)
 
-### Set up
-#### 1. Download and unzip druid 
+## Set up guideline
+### 1. Download and unzip druid 
  - Download druid
    - wget https://downloads.apache.org/druid/0.22.1/apache-druid-0.22.1-bin.tar.gz
  - Unzip
    - tar -xzf apache-druid-0.22.1-bin.tar.gz
   
-#### 2. Configure runtime.properties in Master / Data / Query server
+### 2. Configure runtime.properties in Master / Data / Query server
 Set on one server and then copy it to other servers (in step 7)
 
  - Master server 
@@ -33,7 +33,7 @@ Set on one server and then copy it to other servers (in step 7)
    - druid.host=router_server_ip (in router/runtime.properties)
 
 
-#### 3. Configure master (in conf/druid/cluster/_common/common.runtime.properties)
+### 3. Configure master (in conf/druid/cluster/_common/common.runtime.properties)
  - host 
    - druid.host=localhost
 
@@ -52,19 +52,19 @@ Set on one server and then copy it to other servers (in step 7)
    - druid.indexer.logs.directory=/your_hdfs_path/druid/indexing-logs
 
 
-#### 4. Configure connection to Hadoop 
+### 4. Configure connection to Hadoop 
 
  - Copy hadoop configuration XMLs(core-site.xml, hdfs-site,xml, yarn-site.xml, mapred-site.xml) to conf/druid/cluster/_common/
  - (Optional) Copy krb5.conf for Kerberos
 
 
-#### 5. Configure Zookeeper 
+### 5. Configure Zookeeper 
 
  - druid.zk.service.host=zookeeper_server_ip:port
  - druid.zk.paths.base=/druid
 
 
-#### 6. (Optional) Configure memeory size
+### 6. (Optional) Configure memeory size
 Configure base on your server spec
 
  - Data node 
@@ -111,24 +111,23 @@ Configure base on your server spec
        - XX:MaxDirectMemorySize=128m
 
 
-
 #### 7. Copy configuration
 Copy to other servers 
 
 
-#### 8. Start server 시작
+### 8. Start server
  - Master
    - bin/start-cluster-master-with-zk-server
 
- - Data server 시작
+ - Data server 
   - bin/start-cluster-data-server
  
- - Query server 시작
+ - Query server
   - bin/start-cluster-query-server
 
 
 
-#### 9. Check admin page  
+### 9. Check admin page  
  - Master: http://master_server_ip:8081
  - Querynode: http://query_server_ip:8888/
 
