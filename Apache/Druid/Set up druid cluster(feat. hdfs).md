@@ -161,5 +161,5 @@ Copy all configurations to other servers
     <img width="960" alt="image" src="https://user-images.githubusercontent.com/13589283/170643732-5c49352b-bbcc-43d3-b059-31da00562bac.png">
 
  - Querying
-    <img width="698" alt="image" src="https://user-images.githubusercontent.com/13589283/170643751-98fc4fe8-e052-42c7-b592-5fbaf6848852.png">
+    <img width="960" alt="image" src="https://user-images.githubusercontent.com/13589283/170643751-98fc4fe8-e052-42c7-b592-5fbaf6848852.png">
 
