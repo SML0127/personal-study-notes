@@ -12,11 +12,12 @@ Guideline for setting up druid cluster
 ### 1. Download and unzip druid 
  - Download druid
    - wget https://downloads.apache.org/druid/0.22.1/apache-druid-0.22.1-bin.tar.gz
+
  - Unzip
    - tar -xzf apache-druid-0.22.1-bin.tar.gz
   
 ### 2. Configure runtime.properties in Master / Data / Query server
-Set on one server and then copy it to other servers (in step 7)
+Configure it on one server and then copy it to other servers (step 7)
 
  - Master server 
    - druid.host = master_server_ip (in coordinator-overload/runtime.properties)
@@ -111,8 +112,8 @@ Configure base on your server spec
        - XX:MaxDirectMemorySize=128m
 
 
-#### 7. Copy configuration
-Copy to other servers 
+### 7. Copy configuration
+Copy all configurations to other servers 
 
 
 ### 8. Start server
