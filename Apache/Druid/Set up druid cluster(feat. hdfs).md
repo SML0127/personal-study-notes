@@ -20,7 +20,6 @@ Guideline for setting up druid cluster and load data from hdfs
 Configure it on one server and then copy it to other servers (step 7)
 
  - Master server 
-   - druid.host = master_server_ip (in coordinator-overload/runtime.properties)
    ```` xml
    druid.host = master_server_ip (in coordinator-overload/runtime.properties)
    ````
