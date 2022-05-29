@@ -61,9 +61,8 @@ Topic  >  Partition  >  Segment
 레코드, 메세지, 데이터, 이벤트
 세그먼트에 저장되는 레코드
    - 레코드 = header(topic, partition, timestamp ..) + key + value
-   - →  header는 topic,metadata등을 보관, value는 실제 data, key의 역할?
-   - → 동일 key = 동일 partition
-   -    (why? partition의 개수를 늘리게되면 같은 key에 대해 늦게 들어온 message가 먼저 consume될 가능성 제거 = offset 보장)
+     →  header는 topic,metadata등을 보관, value는 실제 data, key의 역할?
+    → 동일 key = 동일 partition → (why? partition의 개수를 늘리게되면 같은 key에 대해 늦게 들어온 message가 먼저 consume될 가능성 제거 = offset 보장)
  - Offset
  - Lag
    - 마지막으로 produce된 메시지와 마지막 consumer committed offset의 차이
