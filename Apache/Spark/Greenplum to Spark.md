@@ -7,11 +7,11 @@ Guideline for connecting greenplum to spark
 
 ## Set up guideline
  - Download greenplum-spark connector
-   - 링크: [Download VMware Tanzu™ Greenplum® — VMware Tanzu Network (pivotal.io)](https://network.pivotal.io/products/vmware-tanzu-greenplum#/releases/280281/file_groups/702)
+   - link: [Download VMware Tanzu™ Greenplum® — VMware Tanzu Network (pivotal.io)](https://network.pivotal.io/products/vmware-tanzu-greenplum#/releases/280281/file_groups/702)
 
- - greenplum-connector-apache-spark-scala_2.12-2.1.1.jar 등록
-   - spark-shell에서 테스트? GSC_JAR 환경 변수에 greenplum-connector-apache-spark-scala_2.12-2.1.1.jar 경로 등록
-   - zeppelin에서 테스트?  SPARK_SUBMIT_OPTIONS에 hdfs://hadoop_cluster/your_path/greenplum-connector-apache-spark-scala_2.12-2.1.1.jar 추가
+ - Add greenplum-connector-apache-spark-scala_2.12-2.1.1.jar
+   - spark-shell → set environment variable GSC_JAR = path to greenplum-connector-apache-spark-scala_2.12-2.1.1.jar
+   - zeppelin →  add hdfs://hadoop_cluster/your_path/greenplum-connector-apache-spark-scala_2.12-2.1.1.jar to SPARK_SUBMIT_OPTIONS
 
 
  - Start spark-shell with connector
@@ -20,7 +20,7 @@ Guideline for connecting greenplum to spark
    ````
 
 
- - 설치 확인 명령어 및 결과
+ - Installation result
    ```` scala
    Class.forName("io.pivotal.greenplum.spark.GreenplumRelationProvider")
    Class.forName("org.postgresql.Driver")
@@ -29,16 +29,16 @@ Guideline for connecting greenplum to spark
 
 ## Toy Example
 
- - Greenplum 접속
+ - Connect to Greenplum 
    ```` sql
    psql -h server_ip -p server_port -U user_name -d database_name
    ````
- - 계정 권한 변경
+ - Change user role
    ```` sql
    alter role user_name with CREATEEXTTABLE (type='writable',protocol='gpfdist');
    ````
 
- - 테스트 테이블, 더미 데이터 삽입
+ - Create table and insert dumy data
    ```` sql
    CREATE TABLE test ( col1 int, col2 int, col3 text ) DISTRIBUTED BY (col1, col2);
    insert into test_table(col1, col2, col3) values(1, 1, 'number 1, 1');
@@ -52,13 +52,13 @@ Guideline for connecting greenplum to spark
    insert into test_table(col1, col2, col3) values(2, 4, 'number 2, 4');
    insert into test_table(col1, col2, col3) values(2, 5, 'number 2, 5');
    ````
- - 수행 명령어
+ - Test command
    ```` scala
    val df = spark.read.format("greenplum").option("url", "jdbc:postgresql://server_ip:server_port/database").option("user", "user_name").option("password", "your_password").option("dbschema","schema_name").option("dbtable", "test_table").option("partitionColumn","col1").option("partitionColumn","col2").load()
    df.createTempView("test_table")
    spark.sql("select * from test_table").show()
    ````
- - 결과 <br><br/>
+ - Result <br><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![image](https://user-images.githubusercontent.com/13589283/171176088-f79b3546-b69a-4700-a162-651dd9ee0b66.png)
 
 
