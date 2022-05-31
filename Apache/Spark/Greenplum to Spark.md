@@ -58,8 +58,7 @@ Guideline for connecting greenplum to spark
    df.createTempView("test_table")
    spark.sql("select * from test_table").show()
    ````
- - 결과
-<br/>
+ - 결과 <br><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![image](https://user-images.githubusercontent.com/13589283/171176088-f79b3546-b69a-4700-a162-651dd9ee0b66.png)
 
 
