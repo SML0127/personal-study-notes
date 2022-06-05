@@ -12,6 +12,7 @@ Disk-based인 하둡을 in-memory로 변환하여 처리 성능을 높인 분산
 
  - SparkSession (Spark ver >= 2.0)
    - SparkContext를 포함, context 마다 context object를 생성할 필요성을 제거
+   - SparkContext 특징들을 포함하여 DataSet, DataFrame API의 entry point 역할
     ```` scala
     import org.apache.spark.sql.SparkSession
  
@@ -20,6 +21,8 @@ Disk-based인 하둡을 in-memory로 변환하여 처리 성능을 높인 분산
       .appName("Spark Session Example")
       .config("spark.some.config.option", "some-value")
       .getOrCreate()
+    val df_ㅜ ㅁfor_parquet = spark.read.parquet("file.parquet")
+    val df_for_json = spark.read.parquet("file.json")
     ````
 
 
