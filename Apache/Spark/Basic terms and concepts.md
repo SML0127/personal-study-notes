@@ -94,12 +94,18 @@ Disk-based인 하둡을 in-memory로 변환하여 처리 성능을 높인 분산
    val primitiveDS = Seq(1, 2, 3).toDS()
    ````
 
-
-
-
 ## Spark cluster에서 Spark application이 동작되는 과정
  1. spark-submit을 통해 spark application(jar)이 제출
  2. 배포방식(client, cluster)과 cluster manager에 따라 차이가 있으나, driver가 main 함수를 수행하며 spark context를 생성
  3. spark context를 통해 cluster manager와 연결되고, cluster manager는 spark application에게 executor들 할당
  4. driver는 executor들에게 task(code, data)들을 할당
+ 
+ 
+ 
+ ### Reference
+  - https://databricks.com/kr/blog/2016/08/15/how-to-use-sparksession-in-apache-spark-2-0.html
+  - https://databricks.com/kr/glossary/what-are-spark-applications
+  - https://www.ksolves.com/blog/big-data/spark/sparksession-vs-sparkcontext-what-are-the-differences
+  - https://spark.apache.org/docs/2.3.0/sql-programming-guide.html
+  - https://spark.apache.org/docs/2.3.0/sql-programming-guide.html
  
