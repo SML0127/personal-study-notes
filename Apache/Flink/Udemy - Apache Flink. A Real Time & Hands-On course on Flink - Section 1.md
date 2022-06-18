@@ -43,7 +43,7 @@
  - ML을 위해 Hadoop은 별도의 tool(e.e apache mahout)이 필요하나 Spark나 Flink는 Mlib, FlinkML 각각의 library가 존재 및 제공
 
 
-### Spark vs Flink
+## Spark vs Flink
  - Spark가 stream processing을 지원하지만, 초기 RDD의 batch processing을 기반으로 고안(not a true real time processing)
  - Spark streaming computation model은 micro-batching 기반, batch가 작을 수록 near real time processing으로 유지
  - Flink는 window 개념이 존재
