@@ -147,6 +147,7 @@
 
        word_count(known_args.input, known_args.output)
    ````
+
  - Reduce operation
    - keyBy for DataStream API, groupBy for Table API
      - Java
@@ -209,7 +210,7 @@
      }
      ````
      - Python
-     ```` python
+     ````python
      import argparse
      import logging
      import sys
@@ -273,6 +274,8 @@
          known_args, _ = parser.parse_known_args(argv) 
          average_profit(known_args.input, known_args.output)
      ````
+
+
  - Aggregation operation
    - Java
    ```` java
@@ -312,74 +315,75 @@
      }
    }
    ````
+
    - Python
-   ```` pythnon
-   import argparse
-   import logging
-   import sys
+   ````pytnon
+    import argparse
+    import logging
+    import sys
 
-   from pyflink.common import WatermarkStrategy, Encoder, Types
-   from pyflink.datastream import StreamExecutionEnvironment, RuntimeExecutionMode
-   from pyflink.datastream.connectors import (FileSource, StreamFormat, FileSink, OutputFileConfig, RollingPolicy)
+    from pyflink.common import WatermarkStrategy, Encoder, Types
+    from pyflink.datastream import StreamExecutionEnvironment, RuntimeExecutionMode
+    from pyflink.datastream.connectors import (FileSource, StreamFormat, FileSink, OutputFileConfig, RollingPolicy)
 
-   def aggregation(input_path):
-       env = StreamExecutionEnvironment.get_execution_environment()
+    def aggregation(input_path):
+        env = StreamExecutionEnvironment.get_execution_environment()
 
-       # datastream인데 mode를 batch로 (why? file = bounded data)
-       env.set_runtime_mode(RuntimeExecutionMode.BATCH)
-       # write all the data to one file
-       env.set_parallelism(1)
+        # datastream인데 mode를 batch로 (why? file = bounded data)
+        env.set_runtime_mode(RuntimeExecutionMode.BATCH)
+        # write all the data to one file
+        env.set_parallelism(1)
 
-       # define the source
-       if input_path is not None:
-           ds = env.from_source(
-               source=FileSource.for_record_stream_format(StreamFormat.text_line_format(), input_path).process_static_file_set().build(),
-               watermark_strategy=WatermarkStrategy.for_monotonous_timestamps(),
-               source_name="file_source"
-           )
-       else:
-           print("Executing word_count example with default input data set.")
-           print("Use --input to specify file input.")
-           return
+        # define the source
+        if input_path is not None:
+            ds = env.from_source(
+                source=FileSource.for_record_stream_format(StreamFormat.text_line_format(), input_path).process_static_file_set().build(),
+                watermark_strategy=WatermarkStrategy.for_monotonous_timestamps(),
+                source_name="file_source"
+            )
+        else:
+            print("Executing word_count example with default input data set.")
+            print("Use --input to specify file input.")
+            return
 
-       # ds = [June,Category4,Perfume,10,1]
-       ds = ds.map(lambda line: (line.split(",")[1], line.split(",")[2], line.split(",")[3], int(line.split(",")[4])) 
-
-
-       ds.key_by(lambda i: i[0]).min(3).sink_to(
-               sink=FileSink.for_row_format(base_path="/output/path/min.txt", encoder=Encoder.simple_string_encoder())
-               .with_rolling_policy(RollingPolicy.default_rolling_policy())
-               .build()
-           ) 
-       ds.key_by(lambda i: i[0]).min_by(3).sink_to(
-               sink=FileSink.for_row_format(base_path="/output/path/min_by.txt", encoder=Encoder.simple_string_encoder())
-               .with_rolling_policy(RollingPolicy.default_rolling_policy())
-               .build()
-           )  
-       ds.key_by(lambda i: i[0]).max(3).sink_to(
-               sink=FileSink.for_row_format(base_path="/output/path/max.txt", encoder=Encoder.simple_string_encoder())
-               .with_rolling_policy(RollingPolicy.default_rolling_policy())
-               .build()
-           )  
-       ds.key_by(lambda i: i[0]).max_by(3).sink_to(
-               sink=FileSink.for_row_format(base_path="/output/path/max_by.txt", encoder=Encoder.simple_string_encoder())
-               .with_rolling_policy(RollingPolicy.default_rolling_policy())
-               .build()
-           ) 
-
-       # submit for execution
-       env.execute()
+        # ds = [June,Category4,Perfume,10,1]
+        ds = ds.map(lambda line: (line.split(",")[1], line.split(",")[2], line.split(",")[3], int(line.split(",")[4])) 
 
 
-   if __name__ == '__main__':
-       logging.basicConfig(stream=sys.stdout, level=logging.INFO, format="%(message)s")
-       parser = argparse.ArgumentParser()
-       parser.add_argument('--input',dest='input',required=False,help='Input file to process.')
+        ds.key_by(lambda i: i[0]).min(3).sink_to(
+                sink=FileSink.for_row_format(base_path="/output/path/min.txt", encoder=Encoder.simple_string_encoder())
+                .with_rolling_policy(RollingPolicy.default_rolling_policy())
+                .build()
+            ) 
+        ds.key_by(lambda i: i[0]).min_by(3).sink_to(
+                sink=FileSink.for_row_format(base_path="/output/path/min_by.txt", encoder=Encoder.simple_string_encoder())
+                .with_rolling_policy(RollingPolicy.default_rolling_policy())
+                .build()
+            )  
+        ds.key_by(lambda i: i[0]).max(3).sink_to(
+                sink=FileSink.for_row_format(base_path="/output/path/max.txt", encoder=Encoder.simple_string_encoder())
+                .with_rolling_policy(RollingPolicy.default_rolling_policy())
+                .build()
+            )  
+        ds.key_by(lambda i: i[0]).max_by(3).sink_to(
+                sink=FileSink.for_row_format(base_path="/output/path/max_by.txt", encoder=Encoder.simple_string_encoder())
+                .with_rolling_policy(RollingPolicy.default_rolling_policy())
+                .build()
+            ) 
 
-       argv = sys.argv[1:]
-       known_args, _ = parser.parse_known_args(argv)      
-       aggregation(known_args.input)
-   ````
+        # submit for execution
+        env.execute()
+
+
+    if __name__ == '__main__':
+        logging.basicConfig(stream=sys.stdout, level=logging.INFO, format="%(message)s")
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--input',dest='input',required=False,help='Input file to process.')
+
+        argv = sys.argv[1:]
+        known_args, _ = parser.parse_known_args(argv)      
+        aggregation(known_args.input)
+    ````
    
  - Side outputs
    - Java
@@ -435,7 +439,8 @@
    }
    ````
    - Python
-   ```` pythnon
+
+   ````python
    import argparse
    import logging
    import sys
