@@ -79,6 +79,8 @@
      - DataStream (Stream)
 
  - programming model (flow of a flink program)
+   ![csa-architecture](https://user-images.githubusercontent.com/13589283/175970885-3b269eb7-056b-4cec-9921-0fb99aeb6593.png)
+
    - Source → Operations / Transformation → Sink
      - Source: file, kafka, flume, socket
      - Sink: HDFS, DB, Memory
@@ -99,3 +101,11 @@
    - immutable (like RDD)
    - only one operator for one dataset/dataframe (cannot perform different operations to same dataset/dataframe) → 표현이 애매한데, dataset의 일부에 A 연산 나머지 일부에 B 연산 이런게 안된다는 뜻이고 dataset 전체에 대해 A 연산, B 연산 각각 수행은 가능
    - dependency가 있음 (연산의 순서) → 각 datatset들은 list of dependency를 가지고 있고, 수행해야할 모든 연산 tracking함
+
+ - Table API(DataSet) / DataStream
+   - Immutable (like RDD)
+   - 매 연산의 결과로 새로운 table / datastream을 생성
+   - only one operator for one table/dataframe (cannot perform different operations to same table/dataframe) → 표현이 애매한데, dataset의 일부에 A 연산 나머지 일부에 B 연산 이런게 안된다는 뜻. dataset 전체에 대해 A 연산, B 연산 각각 수행 가능
+   - 연산간의 dependency(연산의 순서) 존재 → 각 datatset들은 list of dependency를 가지고 있고, 수행할 모든 연산 tracking
+   - 두 API는 혼용 될 수 있음 (can be mixed and matched)
+
