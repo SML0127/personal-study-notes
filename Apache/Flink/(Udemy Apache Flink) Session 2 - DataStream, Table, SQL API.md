@@ -317,7 +317,7 @@
    ````
 
    - Python
-   ````pytnon
+   ````python
     import argparse
     import logging
     import sys
