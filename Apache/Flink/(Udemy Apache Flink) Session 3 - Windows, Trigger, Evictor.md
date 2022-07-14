@@ -36,122 +36,122 @@
 ![tumbling-windows](https://user-images.githubusercontent.com/13589283/178994656-ef4ecb9f-a28a-430c-8a8f-1155843cb5b4.svg)
 
    - Java
-```` java
-public class AverageProfitTumblingProcessing {
-  public static void main(String[] args) throws Exception {
-    // set up the streaming execution environment
-    StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-    //env.setStreamTimeCharacteristic(TimeCharacteristic.ProcessingTime);
- 
-    DataStream < String > data = env.socketTextStream("localhost", 9090);
- 
-    // month, product, category, profit, count
-    DataStream < Tuple5 < String, String, String, Integer, Integer >> mapped = data.map(new Splitter()); // tuple  [June,Category5,Bat,12,1]                                                                                       
-    DataStream < Tuple5 < String, String, String, Integer, Integer >> reduced = mapped
-      .keyBy(t -> t.f0)
-      .window(TumblingProcessingTimeWindows.of(Time.seconds(2)))
-    //.window(SlidingProcessingTimewindows.of(Time.seconds(2), Time.seconds(1))
-      .reduce(new Reduce1());
-    // June { [Category5,Bat,12,1] Category4,Perfume,10,1}  //rolling reduce           
-    // reduced = { [Category4,Perfume,22,2] ..... }
-    reduced.addSink(StreamingFileSink
-      .forRowFormat(new Path("/home/jivesh/www"),
-        new SimpleStringEncoder < Tuple5 < String, String, String, Integer, Integer >> ("UTF-8"))
-      .withRollingPolicy(DefaultRollingPolicy.builder().build())
-      .build());
- 
-    // execute program
-    env.execute("Avg Profit Per Month");
-  }
- 
-  public static class Reduce1 implements ReduceFunction < Tuple5 < String, String, String, Integer, Integer >> {
-    public Tuple5 < String, String, String, Integer, Integer > reduce(Tuple5 < String, String, String, Integer, Integer > current,
-      Tuple5 < String, String, String, Integer, Integer > pre_result) {
-      return new Tuple5 < String, String, String, Integer, Integer > (current.f0,
-        current.f1, current.f2, current.f3 + pre_result.f3, current.f4 + pre_result.f4);
-    }
-  }
-  public static class Splitter implements MapFunction < String, Tuple5 < String, String, String, Integer, Integer >> {
-    public Tuple5 < String, String, String, Integer, Integer > map(String value) // 01-06-2018,June,Category5,Bat,12
-    {
-      String[] words = value.split(","); // words = [{01-06-2018},{June},{Category5},{Bat}.{12}
-      // ignore timestamp, we don't need it for any calculations
-      //Long timestamp = Long.parseLong(words[5]);
-      return new Tuple5 < String, String, String, Integer, Integer > (words[1], words[2], words[3], Integer.parseInt(words[4]), 1);
-    } //    June    Category5      Bat                      12
-  }
-}
-````
+   ```` java
+   public class AverageProfitTumblingProcessing {
+     public static void main(String[] args) throws Exception {
+       // set up the streaming execution environment
+       StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+       //env.setStreamTimeCharacteristic(TimeCharacteristic.ProcessingTime);
+
+       DataStream < String > data = env.socketTextStream("localhost", 9090);
+
+       // month, product, category, profit, count
+       DataStream < Tuple5 < String, String, String, Integer, Integer >> mapped = data.map(new Splitter()); // tuple  [June,Category5,Bat,12,1]                                                                                       
+       DataStream < Tuple5 < String, String, String, Integer, Integer >> reduced = mapped
+         .keyBy(t -> t.f0)
+         .window(TumblingProcessingTimeWindows.of(Time.seconds(2)))
+       //.window(SlidingProcessingTimewindows.of(Time.seconds(2), Time.seconds(1))
+         .reduce(new Reduce1());
+       // June { [Category5,Bat,12,1] Category4,Perfume,10,1}  //rolling reduce           
+       // reduced = { [Category4,Perfume,22,2] ..... }
+       reduced.addSink(StreamingFileSink
+         .forRowFormat(new Path("/home/jivesh/www"),
+           new SimpleStringEncoder < Tuple5 < String, String, String, Integer, Integer >> ("UTF-8"))
+         .withRollingPolicy(DefaultRollingPolicy.builder().build())
+         .build());
+
+       // execute program
+       env.execute("Avg Profit Per Month");
+     }
+
+     public static class Reduce1 implements ReduceFunction < Tuple5 < String, String, String, Integer, Integer >> {
+       public Tuple5 < String, String, String, Integer, Integer > reduce(Tuple5 < String, String, String, Integer, Integer > current,
+         Tuple5 < String, String, String, Integer, Integer > pre_result) {
+         return new Tuple5 < String, String, String, Integer, Integer > (current.f0,
+           current.f1, current.f2, current.f3 + pre_result.f3, current.f4 + pre_result.f4);
+       }
+     }
+     public static class Splitter implements MapFunction < String, Tuple5 < String, String, String, Integer, Integer >> {
+       public Tuple5 < String, String, String, Integer, Integer > map(String value) // 01-06-2018,June,Category5,Bat,12
+       {
+         String[] words = value.split(","); // words = [{01-06-2018},{June},{Category5},{Bat}.{12}
+         // ignore timestamp, we don't need it for any calculations
+         //Long timestamp = Long.parseLong(words[5]);
+         return new Tuple5 < String, String, String, Integer, Integer > (words[1], words[2], words[3], Integer.parseInt(words[4]), 1);
+       } //    June    Category5      Bat                      12
+     }
+   }
+   ````
    - Python
 
-```` python
-import argparse
-import logging
-import sys
- 
-from pyflink.common import WatermarkStrategy, Encoder, Types
-from pyflink.datastream import StreamExecutionEnvironment, RuntimeExecutionMode
-from pyflink.datastream.connectors import (FileSource, StreamFormat, FileSink, OutputFileConfig, RollingPolicy)
-from pyflink.datastream.tests.test_util import DataStreamTestSinkFunction
-from pyflink.common.watermark_strategy import WatermarkStrategy, TimestampAssigner
-from pyflink.datastream.window import (TumblingEventTimeWindows, TumblingProcessingTimeWindows, SlidingEventTimeWindows, EventTimeSessionWindows, CountSlidingWindowAssigner, SessionWindowTimeGapExtractor, CountWindow, PurgingTrigger, EventTimeTrigger, TimeWindow, GlobalWindows, CountTrigger)
- 
- 
-def tumbling_window_avg_profit(input_path):
-    env = StreamExecutionEnvironment.get_execution_environment()
-    env.set_runtime_mode(RuntimeExecutionMode.BATCH)
-    env.set_parallelism(1)
- 
-    # define the source
-    if input_path is not None:
-        data_stream = env.from_source(
-            source=FileSource.for_record_stream_format(StreamFormat.text_line_format(), input_path).process_static_file_set().build(),
-            # watermark_strategy=WatermarkStrategy.for_monotonous_timestamps(),
-            source_name="file_source"
-        )
-    else:
-        print("Executing word_count example with default input data set.")
-        print("Use --input to specify file input.")
-        return
-         
- 
-    watermark_strategy = WatermarkStrategy.for_monotonous_timestamps() \
-                                              .with_timestamp_assigner(SecondColumnTimestampAssigner())
-    # month, product, category, profit, count
-    res_stream = DataStreamTestSinkFunction()
-    data_stream.assign_timestamps_and_watermarks(watermark_strategy) \
-               .map(lambda i: (i[0], i[1], i[2], float(i[4]), 1)) \
-               .key_by(lambda x: x[0], key_type=Types.STRING()) \
-               .window(TumblingProcessingTimeWindows.of(Time.milliseconds(2000))) \
-               .reduce(lambda i, j: (i[0], i[3] + j[3], i[4] + j[4])) \
-               .map(lambda i: (i[0], float(i[3] / i[4])) ) \ 
-               .add_sink(res_stream)
- 
-    # submit for execution
-    env.execute()  
- 
-    print(res_stream.get_results())
- 
-if __name__ == '__main__':
-    logging.basicConfig(stream=sys.stdout, level=logging.INFO, format="%(message)s")
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--input',dest='input',required=False,help='Input file to process.')
- 
-    argv = sys.argv[1:]
-    known_args, _ = parser.parse_known_args(argv)
-    tumbling_window_avg_profit(known_args.input)
-````
+   ```` python
+   import argparse
+   import logging
+   import sys
+
+   from pyflink.common import WatermarkStrategy, Encoder, Types
+   from pyflink.datastream import StreamExecutionEnvironment, RuntimeExecutionMode
+   from pyflink.datastream.connectors import (FileSource, StreamFormat, FileSink, OutputFileConfig, RollingPolicy)
+   from pyflink.datastream.tests.test_util import DataStreamTestSinkFunction
+   from pyflink.common.watermark_strategy import WatermarkStrategy, TimestampAssigner
+   from pyflink.datastream.window import (TumblingEventTimeWindows, TumblingProcessingTimeWindows, SlidingEventTimeWindows, EventTimeSessionWindows, CountSlidingWindowAssigner, SessionWindowTimeGapExtractor, CountWindow, PurgingTrigger, EventTimeTrigger, TimeWindow, GlobalWindows, CountTrigger)
+
+
+   def tumbling_window_avg_profit(input_path):
+       env = StreamExecutionEnvironment.get_execution_environment()
+       env.set_runtime_mode(RuntimeExecutionMode.BATCH)
+       env.set_parallelism(1)
+
+       # define the source
+       if input_path is not None:
+           data_stream = env.from_source(
+               source=FileSource.for_record_stream_format(StreamFormat.text_line_format(), input_path).process_static_file_set().build(),
+               # watermark_strategy=WatermarkStrategy.for_monotonous_timestamps(),
+               source_name="file_source"
+           )
+       else:
+           print("Executing word_count example with default input data set.")
+           print("Use --input to specify file input.")
+           return
+
+
+       watermark_strategy = WatermarkStrategy.for_monotonous_timestamps() \
+                                                 .with_timestamp_assigner(SecondColumnTimestampAssigner())
+       # month, product, category, profit, count
+       res_stream = DataStreamTestSinkFunction()
+       data_stream.assign_timestamps_and_watermarks(watermark_strategy) \
+                  .map(lambda i: (i[0], i[1], i[2], float(i[4]), 1)) \
+                  .key_by(lambda x: x[0], key_type=Types.STRING()) \
+                  .window(TumblingProcessingTimeWindows.of(Time.milliseconds(2000))) \
+                  .reduce(lambda i, j: (i[0], i[3] + j[3], i[4] + j[4])) \
+                  .map(lambda i: (i[0], float(i[3] / i[4])) ) \ 
+                  .add_sink(res_stream)
+
+       # submit for execution
+       env.execute()  
+
+       print(res_stream.get_results())
+
+   if __name__ == '__main__':
+       logging.basicConfig(stream=sys.stdout, level=logging.INFO, format="%(message)s")
+       parser = argparse.ArgumentParser()
+       parser.add_argument('--input',dest='input',required=False,help='Input file to process.')
+
+       argv = sys.argv[1:]
+       known_args, _ = parser.parse_known_args(argv)
+       tumbling_window_avg_profit(known_args.input)
+   ````
 
 
  - Sliding windows 예제
    - Example
-     - Python
      ```` python
      data_stream.key_by(lambda i: i[0])
            .window(SlidingEventTimeWindows.of(Time.seconds(10), Time.seconds(5))) \
      ````
 
  - Session windows
+  ![session-windows](https://user-images.githubusercontent.com/13589283/178997080-2fb40617-60bc-4abc-91b7-dc4a86b0a71e.svg)
    - created based on activity
    - does not have fixed start or end time → session 개념과 동일, active ~ inactive 하는 동안에 들어오는 데이터들이 하나의 window 가 되는것. 따라서 고정된 시작 / 끝 시간은 없음
    - gap 이라는 시간 내에 data가 들어오지 않으면 그 앞까지의 data들을 하나의 window가 된다. → data가 들어오면 active가 되고, 지정한 gap안에 안들어오면 inactive상태가 된다.
@@ -240,11 +240,11 @@ if __name__ == '__main__':
            known_args, _ = parser.parse_known_args(argv)
            session_window_avg_profit(known_args.input)
        ````
- ![session-windows](https://user-images.githubusercontent.com/13589283/178997080-2fb40617-60bc-4abc-91b7-dc4a86b0a71e.svg)
+
       
  - Global window
    - one window per key → key 별로 하나의 window만 유지, processing 되기 위해 trigger 필요
-   - # of data, time 같은 trigger 사용
+   - the number of data, time 같은 trigger 사용
    - Example
      - Java
      ```` java
